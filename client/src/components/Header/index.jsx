@@ -1,23 +1,23 @@
 import React, { useContext } from 'react';
 import styled from 'styled-components';
 import StyleContext from '../../contexts/StyleContext';
+import Slider from '../Slider';
 
+const MainHeader = styled.header`
+  background: ${(props) => props.secondary};
+`;
+const HeaderContents = styled.div`    
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px;
+  padding-right: 25px;
+`;
 const Header = () => {
   const styleCont = useContext(StyleContext);
-  const MainHeader = styled.header`
-    background: ${styleCont.secondary};
-  `;
-  const HeaderContents = styled.div`    
-    display: flex;
-    justify-content: flex-end;
-    padding: 10px
-  `;
   return (
-    <MainHeader>
+    <MainHeader secondary={styleCont.secondary}>
       <HeaderContents>
-        <button type="button">
-          test
-        </button>
+        <Slider cb={styleCont.themeSwitcher} />
       </HeaderContents>
     </MainHeader>
   );

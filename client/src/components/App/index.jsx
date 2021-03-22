@@ -1,3 +1,4 @@
+/* eslint-disable react/prop-types */
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import StyleContext from '../../contexts/StyleContext';
@@ -5,7 +6,42 @@ import logo from './logo.svg';
 import './App.css';
 import Header from '../Header';
 
-function App() {
+const MainDiv = styled.div`
+  background-color: ${(props) => props.background};
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  font-size: calc(10px + 2vmin);
+  color: ${(props) => props.text};
+`;
+const Button = styled.a`
+  display: flex;
+  justify-content: center;
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 11rem;
+  border: 2px solid white;
+  cursor: pointer;
+  background: ${(props) => props.secondary};
+  color: ${(props) => props.text};
+`;
+const ButtonSwitch = styled.button`
+  border-radius: 8px;
+  padding: 0.5rem 0;
+  margin: 0.5rem 1rem;
+  width: 11rem;
+  font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
+  monospace;
+  background: ${(props) => props.primary};
+  color: ${(props) => props.text};
+  border: 2px solid white;
+  cursor: pointer;
+  font-size: calc(10px + 2vmin);
+`;
+const App = () => {
   const [styleCont, setStyleCont] = useState(
     {
       primary: '#FFE66D',
@@ -36,46 +72,11 @@ function App() {
       },
     },
   );
-  const MainDiv = styled.div`
-    background-color: ${styleCont.background};
-    min-height: 100vh;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    font-size: calc(10px + 2vmin);
-    color: ${styleCont.text};
-  `;
-  const Button = styled.a`
-    display: flex;
-    justify-content: center;
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    margin: 0.5rem 1rem;
-    width: 11rem;
-    border: 2px solid white;
-    cursor: pointer;
-    background: ${styleCont.secondary};
-    color: ${styleCont.text};
-  `;
-  const ButtonSwitch = styled.button`
-    border-radius: 8px;
-    padding: 0.5rem 0;
-    margin: 0.5rem 1rem;
-    width: 11rem;
-    font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
-    monospace;
-    background: ${styleCont.primary};
-    color: ${styleCont.text};
-    border: 2px solid white;
-    cursor: pointer;
-    font-size: calc(10px + 2vmin);
-  `;
   return (
     <>
       <StyleContext.Provider value={styleCont}>
         <Header />
-        <MainDiv>
+        <MainDiv background={styleCont.background} text={styleCont.text}>
           <img src={logo} className="App-logo" alt="logo" />
           <p>
             Edit
@@ -90,8 +91,10 @@ function App() {
           >
             Learn React
           </a>
-          <Button>test</Button>
+          <Button text={styleCont.text} secondary={styleCont.secondary}>test</Button>
           <ButtonSwitch
+            text={styleCont.text}
+            primary={styleCont.primary}
             onClick={styleCont.themeSwitcher}
           >
             Theme
@@ -100,6 +103,6 @@ function App() {
       </StyleContext.Provider>
     </>
   );
-}
+};
 
 export default App;
